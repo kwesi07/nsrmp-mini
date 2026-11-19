@@ -61,7 +61,7 @@ like with like**.
 ```bash
 uv venv --python 3.12 .venv
 uv pip install --python .venv/bin/python -r requirements.txt
-.venv/bin/pytest -q                              # 59 tests
+.venv/bin/pytest -q                              # 76 tests
 .venv/bin/python run_experiments.py --phase all  # ~7 min on an M2 Pro CPU
 .venv/bin/python diagnose_baseline.py            # ~2 min, explains the GRU baseline result
 .venv/bin/python run_experiments.py --phase noise # ~4.5 min, optional feature-noise sweep
@@ -196,6 +196,34 @@ Action Simulator precision, not grounding (we did not investigate why both model
 
 Raw per-seed numbers: `results/phase1.json`, `results/phase2.json`, `results/noise.json`; tables: `results/results_phase{1,2}.md`,
 `results/results_noise.md`.
+
+## Checks against the authors' code
+
+Two questions about how our setup differs from the authors' released code. Both are opt-in; every number above is unchanged. Our results, not the paper's. Script: `compare_authors_variants.py` (phase-1 settings, 3 seeds, 311 s on the same CPU); full tables incl. simple/complex splits in `results/authors_variants.md`.
+
+**1. Hard (argmax) evaluation of a move step.** We train and (by default) evaluate with a soft blend: every object moves toward the simulator's output by its subject weight. The authors blend softly in training but at inference take the argmax subject `o1` and argmax reference `o2`, feed `boxes[o1]`, `boxes[o2]` to the simulator and overwrite only `boxes[o1]`. `evaluate(model, batch, hard=True)` does the same (`apply_move(..., hard=True)`); the models are trained exactly as before, only the evaluation changes.
+
+**2. A port of the authors' NMN+ object scoring.** `AuthorsNMNBaseline` (`nsrmp/baseline.py`) keeps our GRU encoder and multi-step loop and replaces the per-role scorer with the authors': per role (subject, reference) two attentions `softmax_i(MLP([Map(sentence); f_i]))`, multiplied and renormalised, with no box input; the action is `softmax(decoder(sentence))`. Hidden sizes are the authors' divided by 4 (Map 512-256 -> 128-64; scorer 256-256-128-1 -> 64-64-32-1; decoder 512-256-256-128 -> 128-64-64-32), since their feature and GRU widths come from configs we cannot see. Deviation: we keep our shared `ActionSimulator` and `apply_move` instead of their `pred` MLP so the comparison stays fair.
+
+Phase-1 test set (3-5 objects, single step), overall; mean ± sample std over 3 seeds. Soft (the evaluation used everywhere above):
+
+| Model | IOU | IOU-M | Subject acc. | Placement acc. |
+|---|---|---|---|---|
+| Ours (neuro-symbolic) | 0.929 ± 0.002 | 0.776 ± 0.005 | 1.000 ± 0.001 | 0.955 ± 0.005 |
+| Parse-matched neural baseline (NMN+-like) | 0.946 ± 0.002 | 0.786 ± 0.011 | 0.999 ± 0.001 | 0.940 ± 0.013 |
+| End-to-end GRU baseline | 0.744 ± 0.002 | 0.005 ± 0.001 | 0.265 ± 0.005 | 0.007 ± 0.001 |
+| NMN+ (authors' scoring) | 0.750 ± 0.002 | 0.005 ± 0.001 | 0.247 ± 0.011 | 0.007 ± 0.001 |
+
+Hard (argmax subject and reference, authors' inference):
+
+| Model | IOU | IOU-M | Subject acc. | Placement acc. |
+|---|---|---|---|---|
+| Ours (neuro-symbolic) | 0.941 ± 0.002 | 0.764 ± 0.005 | 1.000 ± 0.001 | 0.951 ± 0.008 |
+| Parse-matched neural baseline (NMN+-like) | 0.947 ± 0.003 | 0.789 ± 0.012 | 0.999 ± 0.001 | 0.942 ± 0.015 |
+| End-to-end GRU baseline | 0.751 ± 0.003 | 0.005 ± 0.001 | 0.265 ± 0.005 | 0.007 ± 0.001 |
+| NMN+ (authors' scoring) | 0.751 ± 0.003 | 0.005 ± 0.001 | 0.247 ± 0.011 | 0.007 ± 0.001 |
+
+Reading: the soft numbers for our model and the two existing baselines reproduce the Table II analogue exactly (same data, seeds and training). Hard evaluation lowers our model's IOU-M by about 0.012 (0.776 to 0.764) but raises its IOU (0.929 to 0.941), because objects that were only slightly blended toward the moved box now stay exactly in place; the parse-matched baseline barely changes. The authors-style NMN+ scoring collapses exactly like the GRU baseline (IOU-M 0.005, subject accuracy about 0.25): per-seed IOU-M matches the GRU baseline to three decimals. Removing the box input and using product attention did not fix it, so in our setting the collapse is not explained by the scorer's form. This is a statement about our synthetic setting and our scaled-down port, not about the authors' system.
 
 ## From the paper (Table II / Fig. 4), gold bounding boxes
 

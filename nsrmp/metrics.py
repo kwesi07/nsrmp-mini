@@ -13,19 +13,26 @@ def iou(a, b):
     return torch.where(union > 0, inter / union.clamp(min=1e-9), torch.zeros_like(union))
 
 
-def evaluate(model, batch, chunk=500):
+def evaluate(model, batch, chunk=500, hard=False):
     """IOU (all objects), IOU-M (moved objects), subject accuracy, placement accuracy.
 
     Subject accuracy is the fraction of correctly grounded subjects over an example's steps,
     averaged over examples. Placement accuracy: the predicted box centre of a moved object lies
     inside its gold final box.
+
+    `hard=True` evaluates the way the authors' code does at inference: each step moves only the
+    argmax subject, using the argmax reference (see `apply_move`). The model's own flag is restored.
     """
     model.eval()
     preds, weights = [], []
-    with torch.no_grad():
-        for start in range(0, len(batch), chunk):
-            p, w = model(batch.select(range(start, min(start + chunk, len(batch)))))
-            preds.append(p), weights.append(w)
+    previous, model.hard = getattr(model, "hard", False), hard
+    try:
+        with torch.no_grad():
+            for start in range(0, len(batch), chunk):
+                p, w = model(batch.select(range(start, min(start + chunk, len(batch)))))
+                preds.append(p), weights.append(w)
+    finally:
+        model.hard = previous
     pred, subj_w = torch.cat(preds), torch.cat(weights)
     overlap = iou(pred, batch.final)
     steps = torch.arange(batch.subjects.shape[1])[None] < batch.n_steps[:, None]

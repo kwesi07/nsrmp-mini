@@ -54,12 +54,23 @@ class ActionSimulator(nn.Module):
         return subj_box + self.mlp(torch.cat([action_emb, subj_box, ref_box], dim=-1))
 
 
-def apply_move(sim, boxes, subj_w, ref_w, action_emb):
+def _one_hot_argmax(w):
+    """(B, N) weights -> one-hot of the argmax; rows with no weight at all (inactive step) stay zero."""
+    return F.one_hot(w.argmax(-1), w.shape[-1]).float() * (w.sum(-1, keepdim=True) > 0).float()
+
+
+def apply_move(sim, boxes, subj_w, ref_w, action_emb, hard=False):
     """Move the (soft) subject next to the (soft) reference; other objects keep their boxes.
 
     boxes (B, N, 4); subj_w, ref_w (B, N); action_emb (B, E).
     box_hat_i = (1 - w_i) * box_i + w_i * AS(action, subject box, reference box)
+
+    With `hard=True` (evaluation, as in the authors' inference code) both weights are first
+    replaced by their one-hot argmax: the simulator sees the argmax subject and reference boxes and
+    only the argmax subject's box is overwritten.
     """
+    if hard:
+        subj_w, ref_w = _one_hot_argmax(subj_w), _one_hot_argmax(ref_w)
     subj_box = torch.einsum("bn,bnk->bk", subj_w, boxes)
     ref_box = torch.einsum("bn,bnk->bk", ref_w, boxes)
     new_box = sim(action_emb, subj_box, ref_box)
@@ -74,6 +85,7 @@ class NSModel(nn.Module):
         self.concepts = Concepts()
         self.sim = ActionSimulator()
         self.executor = Executor(self.concepts)
+        self.hard = False  # evaluate(..., hard=True) switches this on for argmax evaluation
 
     def forward(self, batch):
         """Returns predicted final boxes (B, N, 4) and subject weights per step (B, S, N)."""
@@ -81,6 +93,6 @@ class NSModel(nn.Module):
         for k in range(batch.subjects.shape[1]):
             moves = [prog[k] if len(prog) > k else None for prog in batch.programs]
             subj, ref, action = self.executor.run_step(moves, batch.feats, boxes, batch.mask)
-            boxes = apply_move(self.sim, boxes, subj, ref, self.sim.action_emb(action))
+            boxes = apply_move(self.sim, boxes, subj, ref, self.sim.action_emb(action), self.hard)
             subj_ws.append(subj)
         return boxes, torch.stack(subj_ws, dim=1)

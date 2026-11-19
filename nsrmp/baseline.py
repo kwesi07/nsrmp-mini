@@ -28,6 +28,7 @@ class NeuralBaseline(nn.Module):
         self.subject_head, self.reference_head = _scorer(hidden), _scorer(hidden)
         self.action_head = nn.Linear(hidden, len(ACTIONS))
         self.sim = ActionSimulator()
+        self.hard = False  # set by evaluate(..., hard=True)
 
     def encode(self, tokens, lengths):
         """tokens (M, L), lengths (M,) -> sentence vector (M, hidden) = GRU state at the last word."""
@@ -49,9 +50,63 @@ class NeuralBaseline(nn.Module):
             subj = self._attend(self.subject_head, batch.feats, boxes, sentences[:, k], batch.mask) * active
             ref = self._attend(self.reference_head, batch.feats, boxes, sentences[:, k], batch.mask) * active
             action_probs = F.softmax(self.action_head(sentences[:, k]), dim=-1)
-            boxes = apply_move(self.sim, boxes, subj, ref, action_probs @ self.sim.action_emb.weight)
+            boxes = apply_move(self.sim, boxes, subj, ref, action_probs @ self.sim.action_emb.weight, self.hard)
             subj_ws.append(subj)
         return boxes, torch.stack(subj_ws, dim=1)
+
+
+def _mlp(sizes):
+    layers = []
+    for i, (a, b) in enumerate(zip(sizes[:-1], sizes[1:])):
+        layers += [nn.Linear(a, b)] + ([nn.ReLU()] if i < len(sizes) - 2 else [])
+    return nn.Sequential(*layers)
+
+
+class _ProductAttention(nn.Module):
+    """One role of the authors' NMN+: two attentions over objects, multiplied and renormalised.
+
+        att_x = softmax_i( MLP_x([Map_x(sentence); f_i]) ),  x in {a, b}
+        w     = att_a * att_b / sum_i(att_a * att_b)
+
+    No box enters the score. Widths are the authors' (Map 512-256, scorer 256-256-128-1 on
+    visual_dim + 256) divided by 4 and with the feature size of our world.
+    """
+
+    def __init__(self, hidden):
+        super().__init__()
+        self.maps = nn.ModuleList(_mlp([hidden, 128, 64]) for _ in range(2))
+        self.scorers = nn.ModuleList(_mlp([FEATURE_DIM + 64, 64, 64, 32, 1]) for _ in range(2))
+
+    def forward(self, feats, sent, mask):
+        attentions = []
+        for to_attention_space, scorer in zip(self.maps, self.scorers):
+            q = to_attention_space(sent)[:, None, :].expand(-1, feats.shape[1], -1)
+            attentions.append(_masked_softmax(scorer(torch.cat([q, feats], dim=-1))[..., 0], mask))
+        total = attentions[0] * attentions[1]
+        return total / total.sum(-1, keepdim=True).clamp(min=1e-12)
+
+
+class AuthorsNMNBaseline(NeuralBaseline):
+    """Port of the authors' NMN+ object scoring (baselineModel.py of the NSRMP code) onto our world.
+
+    Same GRU sentence encoder and multi-step loop as `NeuralBaseline` (inherited, only the heads
+    differ). Per role (subject, reference) two attentions over objects are multiplied
+    (`_ProductAttention`), computed from the sentence and the object feature only, with no box
+    input. The action is softmax(decoder(sentence)), with the authors' 4 hidden layers scaled by 1/4.
+
+    Deviation: the authors predict the new box with their own MLP `pred` on
+    [action probs, reference loc, subject loc]. To keep the comparison fair we use our shared
+    `ActionSimulator` and `apply_move` (action_probs @ action embeddings), as `NeuralBaseline` does.
+    Supports the hard (argmax) evaluation like every model here.
+    """
+
+    def __init__(self, word_dim=32, hidden=64):
+        super().__init__(word_dim, hidden)
+        self.subject_head, self.reference_head = _ProductAttention(hidden), _ProductAttention(hidden)
+        self.action_head = _mlp([hidden, 128, 64, 64, 32, len(ACTIONS)])
+
+    def _attend(self, head, feats, boxes, sent, mask):
+        return head(feats, sent, mask)
 
 
 class Find(nn.Module):
@@ -108,6 +163,7 @@ class ParsedNeuralBaseline(nn.Module):
         self.find = Find(word_dim, hidden)
         self.action_head = nn.Linear(word_dim, len(ACTIONS))
         self.sim = ActionSimulator()
+        self.hard = False  # set by evaluate(..., hard=True)
 
     def bag(self, ids):
         """ids (..., L) -> mean word embedding over non-padding words (zero for an empty group)."""
@@ -124,6 +180,6 @@ class ParsedNeuralBaseline(nn.Module):
             subj = self.find(g[:, 0], g[:, 1], g[:, 2], r[:, 1], batch.feats, boxes, batch.mask) * active
             ref = self.find(g[:, 3], g[:, 4], g[:, 5], r[:, 4], batch.feats, boxes, batch.mask) * active
             action_probs = F.softmax(self.action_head(g[:, 6]), dim=-1)
-            boxes = apply_move(self.sim, boxes, subj, ref, action_probs @ self.sim.action_emb.weight)
+            boxes = apply_move(self.sim, boxes, subj, ref, action_probs @ self.sim.action_emb.weight, self.hard)
             subj_ws.append(subj)
         return boxes, torch.stack(subj_ws, dim=1)
