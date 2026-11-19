@@ -28,6 +28,7 @@ class NeuralBaseline(nn.Module):
         self.subject_head, self.reference_head = _scorer(hidden), _scorer(hidden)
         self.action_head = nn.Linear(hidden, len(ACTIONS))
         self.sim = ActionSimulator()
+        self.hard = False  # set by evaluate(..., hard=True)
 
     def encode(self, tokens, lengths):
         """tokens (M, L), lengths (M,) -> sentence vector (M, hidden) = GRU state at the last word."""
@@ -49,7 +50,7 @@ class NeuralBaseline(nn.Module):
             subj = self._attend(self.subject_head, batch.feats, boxes, sentences[:, k], batch.mask) * active
             ref = self._attend(self.reference_head, batch.feats, boxes, sentences[:, k], batch.mask) * active
             action_probs = F.softmax(self.action_head(sentences[:, k]), dim=-1)
-            boxes = apply_move(self.sim, boxes, subj, ref, action_probs @ self.sim.action_emb.weight)
+            boxes = apply_move(self.sim, boxes, subj, ref, action_probs @ self.sim.action_emb.weight, self.hard)
             subj_ws.append(subj)
         return boxes, torch.stack(subj_ws, dim=1)
 
@@ -108,6 +109,7 @@ class ParsedNeuralBaseline(nn.Module):
         self.find = Find(word_dim, hidden)
         self.action_head = nn.Linear(word_dim, len(ACTIONS))
         self.sim = ActionSimulator()
+        self.hard = False  # set by evaluate(..., hard=True)
 
     def bag(self, ids):
         """ids (..., L) -> mean word embedding over non-padding words (zero for an empty group)."""
@@ -124,6 +126,6 @@ class ParsedNeuralBaseline(nn.Module):
             subj = self.find(g[:, 0], g[:, 1], g[:, 2], r[:, 1], batch.feats, boxes, batch.mask) * active
             ref = self.find(g[:, 3], g[:, 4], g[:, 5], r[:, 4], batch.feats, boxes, batch.mask) * active
             action_probs = F.softmax(self.action_head(g[:, 6]), dim=-1)
-            boxes = apply_move(self.sim, boxes, subj, ref, action_probs @ self.sim.action_emb.weight)
+            boxes = apply_move(self.sim, boxes, subj, ref, action_probs @ self.sim.action_emb.weight, self.hard)
             subj_ws.append(subj)
         return boxes, torch.stack(subj_ws, dim=1)
