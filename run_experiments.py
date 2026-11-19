@@ -61,10 +61,10 @@ def _subset(batch, keep):
     return batch.select(keep.nonzero().flatten())
 
 
-def _evaluate_splits(model, test):
-    return {"overall": evaluate(model, test),
-            "simple": evaluate(model, _subset(test, ~test.is_complex)),
-            "complex": evaluate(model, _subset(test, test.is_complex))}
+def _evaluate_splits(model, test, hard=False):
+    return {"overall": evaluate(model, test, hard=hard),
+            "simple": evaluate(model, _subset(test, ~test.is_complex), hard=hard),
+            "complex": evaluate(model, _subset(test, test.is_complex), hard=hard)}
 
 
 def _models(curriculum_ablation):
