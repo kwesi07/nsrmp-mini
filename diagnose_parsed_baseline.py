@@ -206,9 +206,9 @@ def subject_excluded_from_reference():
     """Patch apply_move for every model: reference weights renormalised over objects other than the subject."""
     original = model_module.apply_move
 
-    def patched(sim, boxes, subj_w, ref_w, action_emb):
+    def patched(sim, boxes, subj_w, ref_w, action_emb, hard=False):
         ref = ref_w * (1 - subj_w)
-        return original(sim, boxes, subj_w, ref / (ref.sum(-1, keepdim=True) + 1e-6), action_emb)
+        return original(sim, boxes, subj_w, ref / (ref.sum(-1, keepdim=True) + 1e-6), action_emb, hard)
 
     model_module.apply_move = baseline_module.apply_move = patched
     try:
