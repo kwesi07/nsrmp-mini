@@ -55,6 +55,60 @@ class NeuralBaseline(nn.Module):
         return boxes, torch.stack(subj_ws, dim=1)
 
 
+def _mlp(sizes):
+    layers = []
+    for i, (a, b) in enumerate(zip(sizes[:-1], sizes[1:])):
+        layers += [nn.Linear(a, b)] + ([nn.ReLU()] if i < len(sizes) - 2 else [])
+    return nn.Sequential(*layers)
+
+
+class _ProductAttention(nn.Module):
+    """One role of the authors' NMN+: two attentions over objects, multiplied and renormalised.
+
+        att_x = softmax_i( MLP_x([Map_x(sentence); f_i]) ),  x in {a, b}
+        w     = att_a * att_b / sum_i(att_a * att_b)
+
+    No box enters the score. Widths are the authors' (Map 512-256, scorer 256-256-128-1 on
+    visual_dim + 256) divided by 4 and with the feature size of our world.
+    """
+
+    def __init__(self, hidden):
+        super().__init__()
+        self.maps = nn.ModuleList(_mlp([hidden, 128, 64]) for _ in range(2))
+        self.scorers = nn.ModuleList(_mlp([FEATURE_DIM + 64, 64, 64, 32, 1]) for _ in range(2))
+
+    def forward(self, feats, sent, mask):
+        attentions = []
+        for to_attention_space, scorer in zip(self.maps, self.scorers):
+            q = to_attention_space(sent)[:, None, :].expand(-1, feats.shape[1], -1)
+            attentions.append(_masked_softmax(scorer(torch.cat([q, feats], dim=-1))[..., 0], mask))
+        total = attentions[0] * attentions[1]
+        return total / total.sum(-1, keepdim=True).clamp(min=1e-12)
+
+
+class AuthorsNMNBaseline(NeuralBaseline):
+    """Port of the authors' NMN+ object scoring (baselineModel.py of the NSRMP code) onto our world.
+
+    Same GRU sentence encoder and multi-step loop as `NeuralBaseline` (inherited, only the heads
+    differ). Per role (subject, reference) two attentions over objects are multiplied
+    (`_ProductAttention`), computed from the sentence and the object feature only, with no box
+    input. The action is softmax(decoder(sentence)), with the authors' 4 hidden layers scaled by 1/4.
+
+    Deviation: the authors predict the new box with their own MLP `pred` on
+    [action probs, reference loc, subject loc]. To keep the comparison fair we use our shared
+    `ActionSimulator` and `apply_move` (action_probs @ action embeddings), as `NeuralBaseline` does.
+    Supports the hard (argmax) evaluation like every model here.
+    """
+
+    def __init__(self, word_dim=32, hidden=64):
+        super().__init__(word_dim, hidden)
+        self.subject_head, self.reference_head = _ProductAttention(hidden), _ProductAttention(hidden)
+        self.action_head = _mlp([hidden, 128, 64, 64, 32, len(ACTIONS)])
+
+    def _attend(self, head, feats, boxes, sent, mask):
+        return head(feats, sent, mask)
+
+
 class Find(nn.Module):
     """Neural attention over objects for one noun phrase, given its parsed word groups.
 
