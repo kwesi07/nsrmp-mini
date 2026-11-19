@@ -61,7 +61,7 @@ like with like**.
 ```bash
 uv venv --python 3.12 .venv
 uv pip install --python .venv/bin/python -r requirements.txt
-.venv/bin/pytest -q                              # 59 tests
+.venv/bin/pytest -q                              # 76 tests
 .venv/bin/python run_experiments.py --phase all  # ~7 min on an M2 Pro CPU
 .venv/bin/python diagnose_baseline.py            # ~2 min, explains the GRU baseline result
 .venv/bin/python run_experiments.py --phase noise # ~4.5 min, optional feature-noise sweep
