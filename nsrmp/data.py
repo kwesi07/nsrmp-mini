@@ -23,6 +23,16 @@ REL_PHRASE = {"left": "to the left of", "right": "to the right of",
               "front": "in front of", "behind": "behind"}
 
 
+def keyword_kind(keyword):
+    if keyword in COLOURS:
+        return "colour"
+    if keyword in SHAPES or keyword == "object":
+        return "noun"
+    if keyword in RELATIONS:
+        return "relation"
+    raise ValueError(f"unknown keyword: {keyword!r}")
+
+
 @dataclass(frozen=True)
 class Obj:
     colour: str
@@ -225,4 +235,12 @@ def make_dataset(count, seed, n_objects=(3, 5), n_steps=(1, 1), p_complex=0.5, f
         steps = rng.randint(n_steps[0], n_steps[1] + 1)
         flags = [bool(first[i])] + [bool(rng.rand() < p_complex) for _ in range(steps - 1)]
         examples.append(make_example(rng, n, flags, feature_noise))
+    return examples
+
+
+def training_examples(config, seed):
+    examples = make_dataset(config["train_examples"], seed)
+    extra = config.get("extra_complex_examples", 0)
+    if extra:
+        examples += make_dataset(extra, config["extra_train_seed"] + seed, p_complex=1.0)
     return examples

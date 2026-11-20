@@ -14,7 +14,8 @@ It **is** a simplified, runnable study of the paper's central claim: executing a
 over learned concepts (Filter / Relate / Unique + an Action Simulator, trained only from final
 object boxes) handles relational instructions and generalises better than a purely neural
 language-attention model. In our simplified world, with the parse held equal, we do **not** find that advantage
-(see Discussion).
+(see Discussion). Issue #1 also trains a parser from final-scene loss and compares the two backends
+under soft and hard object selection. [Current Issue #1 results](#issue-1-round-3)
 
 It is **not** a reproduction of the paper's numbers. The world is a 2D top-down blocks world with
 no images, no robot and no object detector. All code is ours; no code from the official repository was
@@ -27,13 +28,15 @@ like with like**.
 | Paper | File |
 |---|---|
 | Sec. IV-A dataset (here: synthetic scenes, instructions, gold programs, gold final states) | `nsrmp/data.py` |
-| Sec. III-A language parser (given, as in the paper's "program supervision" ablation) | `nsrmp/parser.py` |
+| Sec. III-A language parser (handwritten or learned keyword roles) | `nsrmp/parser.py` and `nsrmp/learned_lr.py`, with private grammar in `nsrmp/_learned_parser.py` |
 | Sec. III-B Visual Reasoner: Scene / Filter / Relate / Unique, NS-CL style soft execution | `nsrmp/executor.py`, `Concepts` in `nsrmp/model.py` |
-| Sec. III-C Action Simulator, predicted final world | `ActionSimulator`, `apply_move`, `NSModel` in `nsrmp/model.py` |
-| Sec. III-D loss and curriculum training | `nsrmp/train.py` |
+| Sec. III-C Action Simulator, predicted final world | `ActionSimulator` and shared moves in `nsrmp/execution.py`, symbolic backend in `nsrmp/model.py` |
+| Sec. III-D loss and curriculum training | `nsrmp/train.py` for original mini, `nsrmp/combined_train.py` for program training, with stage schedules in `run_experiments.py` |
 | Sec. IV-B NMN+ baseline (Fig. 3): parse-matched `ParsedNeuralBaseline` and end-to-end GRU `NeuralBaseline` | `nsrmp/baseline.py`, role word groups from `parse_roles` in `nsrmp/parser.py` |
-| Sec. IV-B metrics (IOU, IOU-M, subject and placement accuracy) | `nsrmp/metrics.py` |
+| Sec. IV-B metrics (IOU, IOU-M, subject and placement accuracy) | `nsrmp/metrics.py` and `nsrmp/combined_metrics.py` for learned-parser metrics |
 | Table II, Fig. 4a, Fig. 4b | `run_experiments.py` |
+
+`nsrmp.model.build(parser_source=..., backend=...)` constructs the models used by program training and checkpoint inference. `run_experiments.py` defines the ordered stages and passes them to `nsrmp.combined_train.fit_programs()`. The root-level `experiment_eval.py` saves and replays matrix checkpoints.
 
 ## Simplifications and why
 
@@ -41,8 +44,7 @@ like with like**.
   with a fixed random 32x9 matrix `P`. We have no YOLO/ResNet, so only the paper's **gold-BB** setting is
   tested; the "extracted BB" rows of Table II have no analogue here. Concepts are trivially separable
   from these features, which makes the *concept* part easy (see discussion).
-- **Given parser.** A deterministic rule-based parser produces the programs (the paper trains its own
-  language encoder, with a given-program ablation in its repo). This removes the language-learning part.
+- **Parser.** The original controls receive programs from a deterministic rule parser. Issue #1 also uses a BiGRU policy that learns keyword roles from final-scene rewards with REINFORCE.
 - **Templated language.** ~15 words, one sentence template, relations only through "which is <relation> the <simple object>".
   Every referring expression selects exactly one object (the generator checks this).
 - **Four actions** (`MoveLeft/Right/Front/Behind`) with a fixed gap; the paper has a richer action set.
@@ -61,14 +63,14 @@ like with like**.
 ```bash
 uv venv --python 3.12 .venv
 uv pip install --python .venv/bin/python -r requirements.txt
-.venv/bin/pytest -q                              # 59 tests
+.venv/bin/python -m pytest -q
 .venv/bin/python run_experiments.py --phase all  # ~7 min on an M2 Pro CPU
 .venv/bin/python diagnose_baseline.py            # ~2 min, explains the GRU baseline result
 .venv/bin/python run_experiments.py --phase noise # ~4.5 min, optional feature-noise sweep
 .venv/bin/python diagnose_parsed_baseline.py     # ~3 min, re-runs the parse-matched diagnostics table
 ```
 
-Settings used for the results below: 4000 train / 1000 test examples (50/50 simple/complex, 3-5 objects),
+Settings for the original Table II and generalisation experiments: 4000 train / 1000 test examples (50/50 simple/complex, 3-5 objects),
 **60 epochs**, Adam lr 3e-3 with cosine decay, batch 64, curriculum = first 20 epochs simple-only, 3 seeds (0, 1, 2),
 500 test examples per object count (3..10) or step count (1..5). All models get identical data, seeds, epochs,
 curriculum, Action Simulator architecture and loss (`sum_i |box_hat_i - box_i|_1 + 1 * (1 - IoU)`). The full run took
@@ -78,7 +80,7 @@ curriculum, Action Simulator architecture and loss (`sum_i |box_hat_i - box_i|_1
 ## The two baselines, and why the parse-matched one is the fair comparison
 
 The paper compares against NMN+, which **shares the language encoder and splitter** with the main model, so the comparison
-isolates *symbolic program execution* vs *neural attention*. We report two neural baselines (`nsrmp/baseline.py`):
+isolates *symbolic program execution* vs *neural attention*. The original three-seed comparison reports two neural baselines (`nsrmp/baseline.py`):
 
 - **Parse-matched neural baseline (NMN+-like)**, `ParsedNeuralBaseline`. It gets *the same parse* as our model, as word
   groups per step (`parse_roles` in `nsrmp/parser.py`): the subject's concept words, its relation word and the concept
@@ -147,7 +149,30 @@ classifier, versus softmax attention with a pooled-context relation term. It is 
 
 ## Our results (synthetic 2D world, gold boxes)
 
-### Table II analogue, test set with 3-5 objects, single step
+### Issue #1 round 3
+
+Each group trained from scratch on seeds 0–9. The table gives mean moved-object IoU (IoU-M) on the formal test set, with 1,000 scenes per seed and instruction length. Each group uses its own parser, final checkpoint and move mode. The neural backend is `ParsedNeuralBaseline`.
+
+| Group | Parser | Backend | Loss | Schedule | Move | Single-step | Two-step |
+|---|---|---|---|---|---|---:|---:|
+| 1 | learned | NS | original | A | soft | 0.2397 | 0.2253 |
+| 2 | learned | NS | squared | A | soft | 0.5310 | 0.4843 |
+| 3 | rule | NS | original | A | soft | 0.7392 | 0.7046 |
+| 4 | rule | NS | squared | A | soft | 0.7741 | 0.7430 |
+| 5 | learned | NS | squared | B | soft | 0.5238 | 0.4807 |
+| 6 | learned | NS | squared | B | hard | 0.5606 | 0.5187 |
+| 7 | rule | NS | squared | B | soft | 0.6877 | 0.6483 |
+| 8 | rule | NS | squared | B | hard | 0.7061 | 0.6812 |
+| 9 | learned | Neural | squared | B | soft | 0.4946 | 0.4447 |
+| 10 | learned | Neural | squared | B | hard | 0.4798 | 0.4303 |
+
+Schedule A trains jointly for 20 simple epochs and 40 mixed epochs. Schedule B trains all active modules for 20 simple epochs, the simulator alone for 30, then relation grounding and any learned parser for 20 mixed epochs. Hard groups switch at epoch 21.
+
+The squared loss improved average placement for both parser types. With the symbolic backend, the handwritten parser led on every matched seed. Among learned-parser groups, the staged symbolic model with hard selection scored highest on both instruction lengths. The backend comparison includes the effect of each backend on its own parser during training.
+
+Three hyperparameter rounds completed on the refactored training path. Formal audits verified 300 independent fits and all 600 test endpoints. [Experiment instructions](learned_parser_experiment.md) · [Results and per-seed summaries](learned_parser_result.md)
+
+### Original Table II analogue, test set with 3-5 objects, single step
 
 | Model | IOU | IOU-M | IOU-M simple | IOU-M complex | Subject acc. simple | Subject acc. complex | Placement acc. |
 |---|---|---|---|---|---|---|---|
@@ -209,7 +234,7 @@ as the number of objects (4a) and steps (4b) grows. The paper reports no standar
 
 ## Discussion
 
-**The fair comparison does not show a neuro-symbolic advantage in our world.** With the parse held equal, the
+**In the original three-seed study the backends performed similarly under a shared handwritten parse.** With the parse held equal, the
 parse-matched neural baseline is on par with our neuro-symbolic model on the 3-5 object test set (IOU-M 0.786 ± 0.011 vs
 0.776 ± 0.005, a difference within about one standard deviation of the baseline, 3 seeds). It is equally good on simple and complex instructions (0.788 vs 0.784)
 and degrades *less* with more objects (0.771 vs 0.707 at 10 objects) and more steps (0.729 vs 0.694 at 5 steps).
@@ -236,15 +261,11 @@ attention the parse-matched model collapsed too, so the attention design (word-o
   extra subject-supervision loss (diagnostic only, never used in reported results) it grounds subjects with 0.86
   accuracy. Wider heads, product / dot-product attention, learning rates 5e-4 to 1e-2, batch sizes 16-256, 4x data,
   100 epochs, sharper attention and removing the box input did not help. It should not be read as evidence for the paper.
-- **No curriculum is slightly better than curriculum for our model** (IOU-M 0.796 vs 0.776, one ablation, 3 seeds).
-  This does not contradict the paper. Its curriculum mainly serves the parts we do not have: its parser is learned with
-  REINFORCE, and its Action Simulator is trained in stages, so simple instructions first make the early program and
-  action learning tractable. With a given parser that benefit cannot appear here, and the curriculum only costs a third
-  of the epochs on half the data.
+- **The original rule-parser ablation scored slightly higher without curriculum** (IoU-M 0.796 vs 0.776 over three seeds). Its simple-only warm-up used half the training examples per epoch. The Issue #1 matrix separately compares joint and staged training with a learned parser.
 - **Absolute numbers differ and are not comparable** (synthetic data, templated language, different metric
   aggregation). Our IOU-M ceiling (~0.78-0.80) comes from Action Simulator precision, not grounding: subject accuracy
   is ~1.0 and placement accuracy ~0.95, but boxes are only ~0.1 wide, so a 0.02 placement error already costs a lot of IoU.
-- **Standard deviations are small** (mostly <= 0.015) because data and features are synthetic and the models are small;
+- **Standard deviations in the original rule-parser study are small** (mostly <= 0.015) because data and features are synthetic and the models are small;
   they reflect seed variance only, not variance from a different world or generator.
 - Our model's generalisation degrades partly because softer `Unique` weights and relation errors accumulate with more
   objects / steps (predicted boxes of earlier steps feed later ones); we did not isolate which factor dominates.
@@ -259,8 +280,7 @@ the only third-party libraries are PyTorch, NumPy, Matplotlib and pytest.
 
 ## Honest limitations
 
-Gold boxes only; given parser and splitter; synthetic templated language; 3 seeds; one fixed hyper-parameter setting shared by all
-models (chosen on seed-0 data of our own model, not tuned per model); the GRU baseline failure above. The parse-matched baseline's
+All experiments use gold boxes, templated language and a fixed splitter. The original study used three seeds and one shared hyperparameter setting chosen on seed-0 data. Issue #1 round 3 used ten seeds per group and a shared configuration selected on validation data for the learned-parser groups. The parse-matched baseline's
 attention design was chosen after diagnostic runs evaluated on the same test-set generator (seeds 0-2), so it is
 slightly favoured by selection; the choice was made on a structural principle (attention may only sharpen by matching
 words; one shared Find module), not by sweeping hyper-parameters.

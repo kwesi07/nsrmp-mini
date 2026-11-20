@@ -1,7 +1,13 @@
 import pytest
 import torch
 
+from nsrmp.batch import collate
+from nsrmp.data import make_dataset
+from nsrmp.execution import ExecutionResult, GroundedStep
+from nsrmp.learned_lr import ParserSample
+from nsrmp.combined_metrics import build_annotations, evaluate_learned
 from nsrmp.metrics import iou
+from nsrmp.model import build
 
 
 def box(*v):
@@ -79,3 +85,36 @@ def test_wrong_subject_is_counted_per_step():
     from nsrmp.metrics import evaluate
     r = evaluate(StubModel(move=True, subject_wrong=True), collate(make_dataset(20, seed=2)))
     assert r["subject_acc"] == 0.0 and r["iou_m"] == pytest.approx(1.0)
+
+
+def test_learned_subject_accuracy_ignores_short_chunk_padding(monkeypatch):
+    examples = (make_dataset(1, seed=4, n_steps=(1, 1)) +
+                make_dataset(1, seed=5, n_steps=(2, 2)))
+    data = collate(examples, mode="learned")
+    annotations = build_annotations(examples, data)
+    model = build(parser_source="learned", backend="symbolic")
+    by_length = {example.n_steps: example for example in examples}
+
+    def sample(inputs, greedy):
+        return ParserSample([by_length[n].program for n in inputs.n_steps.tolist()],
+                            [], torch.zeros(len(inputs)), torch.zeros(len(inputs)))
+
+    def execute(inputs, programs, *, move_mode):
+        steps = []
+        for s in range(max(map(len, programs))):
+            weights = torch.zeros_like(inputs.object_mask, dtype=torch.float32)
+            for b, program in enumerate(programs):
+                if s < len(program):
+                    example = by_length[len(program)]
+                    subject = (example.subjects[s] + (s == 1)) % len(example.objs)
+                    weights[b, subject] = 1
+            steps.append(GroundedStep((), weights, weights))
+        return ExecutionResult(inputs.boxes, steps)
+
+    monkeypatch.setattr(model.parser, "sample", sample)
+    monkeypatch.setattr(model, "execute", execute)
+    for chunk in (1, 2):
+        overall = evaluate_learned(model, data, annotations, chunk=chunk)["overall"]
+        assert overall["subject_acc"] == 0.75
+        assert overall["counts"]["examples"] == 2
+        assert overall["counts"]["steps"] == 3

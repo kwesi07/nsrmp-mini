@@ -3,8 +3,11 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+from nsrmp.baseline import ParsedNeuralBaseline
 from nsrmp.data import ANY, CONCEPTS, FEATURE_DIM
+from nsrmp.execution import ActionSimulator, apply_move, execute_steps
 from nsrmp.executor import Executor
+from nsrmp.learned_lr import RolePolicy
 
 GAMMA, TAU = 0.2, 0.1  # Filter threshold and temperature (NS-CL style)
 N_REAL_CONCEPTS = len(CONCEPTS) - 1  # every concept except the ANY wildcard
@@ -37,43 +40,25 @@ class Concepts(nn.Module):
         return torch.sigmoid(logits.gather(-1, idx)[..., 0])
 
 
-class ActionSimulator(nn.Module):
-    """Paper Sec. III-C: (action, subject box, reference box) -> new subject box.
-
-    The MLP predicts an offset added to the subject box, which makes "stay the same size" the
-    easy default to learn.
-    """
-
-    def __init__(self, n_actions=4, emb_dim=16, hidden=128):
-        super().__init__()
-        self.action_emb = nn.Embedding(n_actions, emb_dim)
-        self.mlp = nn.Sequential(nn.Linear(emb_dim + 8, hidden), nn.ReLU(),
-                                 nn.Linear(hidden, hidden), nn.ReLU(), nn.Linear(hidden, 4))
-
-    def forward(self, action_emb, subj_box, ref_box):
-        return subj_box + self.mlp(torch.cat([action_emb, subj_box, ref_box], dim=-1))
-
-
-def apply_move(sim, boxes, subj_w, ref_w, action_emb):
-    """Move the (soft) subject next to the (soft) reference; other objects keep their boxes.
-
-    boxes (B, N, 4); subj_w, ref_w (B, N); action_emb (B, E).
-    box_hat_i = (1 - w_i) * box_i + w_i * AS(action, subject box, reference box)
-    """
-    subj_box = torch.einsum("bn,bnk->bk", subj_w, boxes)
-    ref_box = torch.einsum("bn,bnk->bk", ref_w, boxes)
-    new_box = sim(action_emb, subj_box, ref_box)
-    return (1 - subj_w[..., None]) * boxes + subj_w[..., None] * new_box[:, None, :]
-
-
 class NSModel(nn.Module):
     """Parser-given programs executed softly; trained end to end from final boxes only."""
 
-    def __init__(self):
+    def __init__(self, *, sim=None):
         super().__init__()
         self.concepts = Concepts()
-        self.sim = ActionSimulator()
+        self.sim = ActionSimulator() if sim is None else sim
         self.executor = Executor(self.concepts)
+
+    @property
+    def relation_module(self):
+        return self.concepts.rel_mlp
+
+    def _ground_step(self, moves, feats, boxes, mask):
+        subject, reference, action = self.executor.run_step(moves, feats, boxes, mask)
+        return subject, reference, self.sim.action_emb(action)
+
+    def execute(self, scene, program, *, move_mode):
+        return execute_steps(scene, program, self.sim, self._ground_step, move_mode=move_mode)
 
     def forward(self, batch):
         """Returns predicted final boxes (B, N, 4) and subject weights per step (B, S, N)."""
@@ -84,3 +69,12 @@ class NSModel(nn.Module):
             boxes = apply_move(self.sim, boxes, subj, ref, self.sim.action_emb(action))
             subj_ws.append(subj)
         return boxes, torch.stack(subj_ws, dim=1)
+
+
+def build(*, parser_source, backend):
+    simulator = ActionSimulator()
+    with torch.random.fork_rng(devices=[]):
+        role_policy = {"learned": RolePolicy, "rule": lambda: None}[parser_source]()
+    model = {"symbolic": NSModel, "neural": ParsedNeuralBaseline}[backend](sim=simulator)
+    model.parser = role_policy
+    return model

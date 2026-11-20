@@ -12,8 +12,8 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 from nsrmp.batch import VOCAB
-from nsrmp.data import ACTIONS, FEATURE_DIM
-from nsrmp.model import ActionSimulator, apply_move
+from nsrmp.data import ACTIONS, ANY, FEATURE_DIM, RELATIONS
+from nsrmp.execution import ActionSimulator, apply_move, execute_steps
 
 
 def _scorer(hidden):
@@ -102,28 +102,60 @@ class ParsedNeuralBaseline(nn.Module):
     by neural attention (`Find`), relations by attention-pooled context.
     """
 
-    def __init__(self, word_dim=32, hidden=64):
+    def __init__(self, word_dim=32, hidden=64, *, sim=None):
         super().__init__()
         self.words = nn.Embedding(len(VOCAB), word_dim, padding_idx=0)
         self.find = Find(word_dim, hidden)
         self.action_head = nn.Linear(word_dim, len(ACTIONS))
-        self.sim = ActionSimulator()
+        self.sim = ActionSimulator() if sim is None else sim
+
+    @property
+    def relation_module(self):
+        return self.find.relation
 
     def bag(self, ids):
         """ids (..., L) -> mean word embedding over non-padding words (zero for an empty group)."""
         present = (ids > 0).float()[..., None]
         return (self.words(ids) * present).sum(-2) / present.sum(-2).clamp(min=1)
 
+    def _ground_roles(self, tokens, active, feats, boxes, mask):
+        g = self.bag(tokens)
+        present = tokens.ne(0).any(-1)
+        subj = self.find(g[:, 0], g[:, 1], g[:, 2], present[:, 1], feats, boxes, mask)
+        ref = self.find(g[:, 3], g[:, 4], g[:, 5], present[:, 4], feats, boxes, mask)
+        probs = F.softmax(self.action_head(g[:, 6]), dim=-1)
+        return subj * active, ref * active, probs @ self.sim.action_emb.weight
+
+    def _ground_step(self, moves, feats, boxes, mask):
+        tokens = torch.tensor([_move_tokens(move) for move in moves], device=boxes.device)
+        active = tokens[:, 6, :1].ne(0)
+        return self._ground_roles(tokens, active, feats, boxes, mask)
+
+    def execute(self, scene, program, *, move_mode):
+        return execute_steps(scene, program, self.sim, self._ground_step, move_mode=move_mode)
+
     def forward(self, batch):
-        groups = self.bag(batch.role_tokens)                    # (B, S, 7, D)
-        has_rel = (batch.role_tokens > 0).any(-1).float()       # (B, S, 7)
         boxes, subj_ws = batch.boxes, []
         for k in range(batch.role_tokens.shape[1]):
-            active = (batch.n_steps > k).float()[:, None]
-            g, r = groups[:, k], has_rel[:, k]
-            subj = self.find(g[:, 0], g[:, 1], g[:, 2], r[:, 1], batch.feats, boxes, batch.mask) * active
-            ref = self.find(g[:, 3], g[:, 4], g[:, 5], r[:, 4], batch.feats, boxes, batch.mask) * active
-            action_probs = F.softmax(self.action_head(g[:, 6]), dim=-1)
-            boxes = apply_move(self.sim, boxes, subj, ref, action_probs @ self.sim.action_emb.weight)
+            subj, ref, action = self._ground_roles(batch.role_tokens[:, k], (batch.n_steps > k)[:, None],
+                                                  batch.feats, boxes, batch.mask)
+            boxes = apply_move(self.sim, boxes, subj, ref, action)
             subj_ws.append(subj)
         return boxes, torch.stack(subj_ws, dim=1)
+
+
+def _phrase_tokens(phrase):
+    _, (_, (_, source, colour), shape) = phrase
+    head = tuple(0 if word == ANY else VOCAB.index(word) for word in (colour, shape))
+    if source[0] == "Scene":
+        return head, (0, 0), (0, 0)
+    _, anchor, relation = source
+    return head, (VOCAB.index(relation), 0), _phrase_tokens(anchor)[0]
+
+
+def _move_tokens(move):
+    if move is None:
+        return ((0, 0),) * 7
+    _, action, subject, reference = move
+    action_id = VOCAB.index(RELATIONS[ACTIONS.index(action)])
+    return (*_phrase_tokens(subject), *_phrase_tokens(reference), (action_id, 0))

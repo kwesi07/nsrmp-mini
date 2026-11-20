@@ -1,0 +1,9 @@
+{
+  "selected": "results/ten-group-followup/round3",
+  "validation_scores": {
+    "results/ten-group-formal": 0.3117769285151075,
+    "results/ten-group-followup/round1": 0.35642461740048065,
+    "results/ten-group-followup/round2": 0.3624299603823376,
+    "results/ten-group-followup/round3": 0.3766665698338482
+  }
+}

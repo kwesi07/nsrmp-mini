@@ -4,7 +4,8 @@ import torch
 
 from nsrmp.batch import collate
 from nsrmp.data import make_dataset, apply_action, ACTIONS
-from nsrmp.model import apply_move, NSModel
+from nsrmp.learned_lr import RolePolicy
+from nsrmp.model import apply_move, build, NSModel
 from nsrmp.train import loss_fn
 
 
@@ -62,9 +63,21 @@ def test_loss_ignores_padded_objects():
 
 def test_ns_model_forward_returns_final_boxes_and_one_subject_distribution_per_step():
     b = collate(make_dataset(8, seed=3, n_steps=(1, 3)))
-    boxes, subj_w = NSModel()(b)
+    with torch.random.fork_rng(devices=[]):
+        torch.manual_seed(1)
+        boxes, subj_w = NSModel()(b)
     assert boxes.shape == b.boxes.shape and subj_w.shape == (8, b.subjects.shape[1], b.boxes.shape[1])
     for k in range(8):
         n_steps = b.n_steps[k].item()
         assert torch.allclose(subj_w[k, :n_steps].sum(-1), torch.ones(n_steps), atol=1e-4)
         assert subj_w[k, n_steps:].abs().sum().item() == 0.0
+
+
+def test_builder_registers_only_a_learned_parser():
+    learned = build(parser_source="learned", backend="symbolic")
+    rule = build(parser_source="rule", backend="symbolic")
+    assert isinstance(learned.parser, RolePolicy)
+    assert {key for key in learned.state_dict() if key.startswith("parser.")} == {
+        f"parser.{key}" for key in learned.parser.state_dict()}
+    assert rule.parser is None
+    assert not any(key.startswith("parser.") for key in rule.state_dict())

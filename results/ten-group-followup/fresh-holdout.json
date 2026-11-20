@@ -1,0 +1,3009 @@
+{
+  "baseline": "results/ten-group-formal",
+  "selected": "results/ten-group-followup/round3",
+  "single_seed_offset": 22000,
+  "two_step_seed_offset": 23000,
+  "test_examples_per_length": 1000,
+  "results": [
+    [
+      1,
+      0,
+      [
+        {
+          "1": {
+            "iou_m": 0.00501195933969575,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.005363491939639179,
+            "moved_objects": 1705,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.004956234140787274,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.006111090278008521,
+            "moved_objects": 1705,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      2,
+      0,
+      [
+        {
+          "1": {
+            "iou_m": 0.265312934570713,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.22215926924002113,
+            "moved_objects": 1705,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.5110045021321857,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.4461034466777081,
+            "moved_objects": 1705,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      3,
+      0,
+      [
+        {
+          "1": {
+            "iou_m": 0.7827272082411219,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.7498441885706157,
+            "moved_objects": 1705,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.7618676843789144,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.7229404247472406,
+            "moved_objects": 1705,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      4,
+      0,
+      [
+        {
+          "1": {
+            "iou_m": 0.7831971289478242,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.7512024465249169,
+            "moved_objects": 1705,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.7841658171191812,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.7504576878835204,
+            "moved_objects": 1705,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      5,
+      0,
+      [
+        {
+          "1": {
+            "iou_m": 0.36506919966917484,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.29600619231092967,
+            "moved_objects": 1705,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.5598759189749835,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.5193588450029383,
+            "moved_objects": 1705,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      6,
+      0,
+      [
+        {
+          "1": {
+            "iou_m": 0.43390482606366276,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.3701672126731598,
+            "moved_objects": 1705,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.5749147014857735,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.5323109656445343,
+            "moved_objects": 1705,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      7,
+      0,
+      [
+        {
+          "1": {
+            "iou_m": 0.6943738211863674,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.6525478829631085,
+            "moved_objects": 1705,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.7051084179440513,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.6715791368299872,
+            "moved_objects": 1705,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      8,
+      0,
+      [
+        {
+          "1": {
+            "iou_m": 0.7528979934677482,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.7255060317360761,
+            "moved_objects": 1705,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.7451680900081992,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.7236335978790014,
+            "moved_objects": 1705,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      9,
+      0,
+      [
+        {
+          "1": {
+            "iou_m": 0.3888129024672962,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.32485602451763196,
+            "moved_objects": 1705,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.5383985807949794,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.471577269504464,
+            "moved_objects": 1705,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      10,
+      0,
+      [
+        {
+          "1": {
+            "iou_m": 0.3512220664853958,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.3021018921544084,
+            "moved_objects": 1705,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.542346273429459,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.47559939703398063,
+            "moved_objects": 1705,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      1,
+      1,
+      [
+        {
+          "1": {
+            "iou_m": 0.006020837200107053,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.006021737906277669,
+            "moved_objects": 1681,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.006034378704003757,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.005944365643824692,
+            "moved_objects": 1681,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      2,
+      1,
+      [
+        {
+          "1": {
+            "iou_m": 0.5209832497572906,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.4725469525878536,
+            "moved_objects": 1681,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.4389004736247007,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.3802412606816944,
+            "moved_objects": 1681,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      3,
+      1,
+      [
+        {
+          "1": {
+            "iou_m": 0.7736084575820714,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.7543238770407289,
+            "moved_objects": 1681,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.6908262285795063,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.6628898092595985,
+            "moved_objects": 1681,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      4,
+      1,
+      [
+        {
+          "1": {
+            "iou_m": 0.7757753365160898,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.748169566643026,
+            "moved_objects": 1681,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.7770365788415075,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.7449360840956241,
+            "moved_objects": 1681,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      5,
+      1,
+      [
+        {
+          "1": {
+            "iou_m": 0.5552642515869229,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.5119120674185337,
+            "moved_objects": 1681,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.5221592241869657,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.4711261806365614,
+            "moved_objects": 1681,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      6,
+      1,
+      [
+        {
+          "1": {
+            "iou_m": 0.5629583973009139,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.5239462777442431,
+            "moved_objects": 1681,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.6079190770107671,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.5804885582437822,
+            "moved_objects": 1681,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      7,
+      1,
+      [
+        {
+          "1": {
+            "iou_m": 0.6700077176913619,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.6352620176260555,
+            "moved_objects": 1681,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.6777149960398674,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.6474212625001351,
+            "moved_objects": 1681,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      8,
+      1,
+      [
+        {
+          "1": {
+            "iou_m": 0.7381557241082192,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.7227685046212577,
+            "moved_objects": 1681,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.7180315843448043,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.7015182571334666,
+            "moved_objects": 1681,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      9,
+      1,
+      [
+        {
+          "1": {
+            "iou_m": 0.4326295871009352,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.3581353031292199,
+            "moved_objects": 1681,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.6584996976270013,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.5935227385703956,
+            "moved_objects": 1681,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      10,
+      1,
+      [
+        {
+          "1": {
+            "iou_m": 0.47642220780882055,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.4072961485099794,
+            "moved_objects": 1681,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.5831385181769728,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.5253535636106251,
+            "moved_objects": 1681,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      1,
+      2,
+      [
+        {
+          "1": {
+            "iou_m": 0.004165829057106748,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.007446540096129259,
+            "moved_objects": 1694,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.004118604824878276,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.007087095720042533,
+            "moved_objects": 1694,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      2,
+      2,
+      [
+        {
+          "1": {
+            "iou_m": 0.524631722500082,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.48490784732079095,
+            "moved_objects": 1694,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.5640780408744468,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.5332317701768358,
+            "moved_objects": 1694,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      3,
+      2,
+      [
+        {
+          "1": {
+            "iou_m": 0.7838279048502446,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.7437618180973083,
+            "moved_objects": 1694,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.7352622703164816,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.6899077101568113,
+            "moved_objects": 1694,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      4,
+      2,
+      [
+        {
+          "1": {
+            "iou_m": 0.792431535616517,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.7583913646809924,
+            "moved_objects": 1694,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.800756694406271,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.7656381499157491,
+            "moved_objects": 1694,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      5,
+      2,
+      [
+        {
+          "1": {
+            "iou_m": 0.3431279349497527,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.2919930633951026,
+            "moved_objects": 1694,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.5662764507168904,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.5233535957636254,
+            "moved_objects": 1694,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      6,
+      2,
+      [
+        {
+          "1": {
+            "iou_m": 0.49542423362098637,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.483824282798257,
+            "moved_objects": 1694,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.6259514394337602,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.5995355399278205,
+            "moved_objects": 1694,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      7,
+      2,
+      [
+        {
+          "1": {
+            "iou_m": 0.6867463206164539,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.6425714620783922,
+            "moved_objects": 1694,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.7149774093590677,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.6780200863285639,
+            "moved_objects": 1694,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      8,
+      2,
+      [
+        {
+          "1": {
+            "iou_m": 0.7627423121482134,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.7405852081277216,
+            "moved_objects": 1694,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.732637590572238,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.7136172590064767,
+            "moved_objects": 1694,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      9,
+      2,
+      [
+        {
+          "1": {
+            "iou_m": 0.5749376800030004,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.5342228689529301,
+            "moved_objects": 1694,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.45618533094995656,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.41538596624030055,
+            "moved_objects": 1694,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      10,
+      2,
+      [
+        {
+          "1": {
+            "iou_m": 0.44986406179331245,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.41395223272042864,
+            "moved_objects": 1694,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.5138333861976861,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.4812775562573447,
+            "moved_objects": 1694,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      1,
+      3,
+      [
+        {
+          "1": {
+            "iou_m": 0.6633033229263965,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.6359387379318814,
+            "moved_objects": 1658,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.6431047704208177,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.6131764641076911,
+            "moved_objects": 1658,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      2,
+      3,
+      [
+        {
+          "1": {
+            "iou_m": 0.5490227634962648,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.5125321928912772,
+            "moved_objects": 1658,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.49052848667398213,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.4532726428895679,
+            "moved_objects": 1658,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      3,
+      3,
+      [
+        {
+          "1": {
+            "iou_m": 0.7647720622932538,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.7375239831040443,
+            "moved_objects": 1658,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.7176327928379178,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.6869500844511321,
+            "moved_objects": 1658,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      4,
+      3,
+      [
+        {
+          "1": {
+            "iou_m": 0.768229906089604,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.744752680445236,
+            "moved_objects": 1658,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.7736985119432211,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.7429244658763412,
+            "moved_objects": 1658,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      5,
+      3,
+      [
+        {
+          "1": {
+            "iou_m": 0.5622585839667008,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.5322415873136799,
+            "moved_objects": 1658,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.5516202136156789,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.5330726195544406,
+            "moved_objects": 1658,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      6,
+      3,
+      [
+        {
+          "1": {
+            "iou_m": 0.5686173586198129,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.5510554260510422,
+            "moved_objects": 1658,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.5792344342267607,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.5587779215415681,
+            "moved_objects": 1658,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      7,
+      3,
+      [
+        {
+          "1": {
+            "iou_m": 0.67321769296797,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.6464630411209711,
+            "moved_objects": 1658,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.6681494270535185,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.639332524853544,
+            "moved_objects": 1658,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      8,
+      3,
+      [
+        {
+          "1": {
+            "iou_m": 0.7525853460356593,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.7254364319638303,
+            "moved_objects": 1658,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.6918007986992598,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.6616942626103957,
+            "moved_objects": 1658,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      9,
+      3,
+      [
+        {
+          "1": {
+            "iou_m": 0.39310244033765046,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.34385927411382433,
+            "moved_objects": 1658,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.5334341407869942,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.4923289484160532,
+            "moved_objects": 1658,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      10,
+      3,
+      [
+        {
+          "1": {
+            "iou_m": 0.3853994555036188,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.33402468974138977,
+            "moved_objects": 1658,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.4618796516096918,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.4178429077741611,
+            "moved_objects": 1658,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      1,
+      4,
+      [
+        {
+          "1": {
+            "iou_m": 0.5960987022953341,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.5334834686519832,
+            "moved_objects": 1687,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.5118609694577172,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.4604454221839032,
+            "moved_objects": 1687,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      2,
+      4,
+      [
+        {
+          "1": {
+            "iou_m": 0.26223431403214637,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.23591548634829043,
+            "moved_objects": 1687,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.49757050262240227,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.4450647396711902,
+            "moved_objects": 1687,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      3,
+      4,
+      [
+        {
+          "1": {
+            "iou_m": 0.777566331859678,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.7448121043334527,
+            "moved_objects": 1687,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.7488912508431822,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.7083242777144292,
+            "moved_objects": 1687,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      4,
+      4,
+      [
+        {
+          "1": {
+            "iou_m": 0.8008188612833619,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.7571567091362128,
+            "moved_objects": 1687,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.7920521099418402,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.7542301071752536,
+            "moved_objects": 1687,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      5,
+      4,
+      [
+        {
+          "1": {
+            "iou_m": 0.3582006743960083,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.3093894352465945,
+            "moved_objects": 1687,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.370329169424891,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.31953879581459604,
+            "moved_objects": 1687,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      6,
+      4,
+      [
+        {
+          "1": {
+            "iou_m": 0.42571104198833926,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.3723252649948399,
+            "moved_objects": 1687,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.5087109168125317,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.4626212118217798,
+            "moved_objects": 1687,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      7,
+      4,
+      [
+        {
+          "1": {
+            "iou_m": 0.7094881485868245,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.6624671717971523,
+            "moved_objects": 1687,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.6967973827123642,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.655716715064496,
+            "moved_objects": 1687,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      8,
+      4,
+      [
+        {
+          "1": {
+            "iou_m": 0.7517978829341009,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.7377947570748349,
+            "moved_objects": 1687,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.7079170342907309,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.693146682703215,
+            "moved_objects": 1687,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      9,
+      4,
+      [
+        {
+          "1": {
+            "iou_m": 0.39565988122358975,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.34789021288016597,
+            "moved_objects": 1687,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.46153137358088864,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.41872643864955883,
+            "moved_objects": 1687,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      10,
+      4,
+      [
+        {
+          "1": {
+            "iou_m": 0.37792761869728564,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.32401614794630457,
+            "moved_objects": 1687,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.6226000710092485,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.5571833207511142,
+            "moved_objects": 1687,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      1,
+      5,
+      [
+        {
+          "1": {
+            "iou_m": 0.5876320552168763,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.5559800203825794,
+            "moved_objects": 1700,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.5497736169712152,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.49300574596354957,
+            "moved_objects": 1700,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      2,
+      5,
+      [
+        {
+          "1": {
+            "iou_m": 0.5372089162589982,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.4878108272953507,
+            "moved_objects": 1700,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.5334505762765184,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.4808165416145793,
+            "moved_objects": 1700,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      3,
+      5,
+      [
+        {
+          "1": {
+            "iou_m": 0.7749994270913303,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.7433792826966109,
+            "moved_objects": 1700,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.7439429420980159,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.7123897202849826,
+            "moved_objects": 1700,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      4,
+      5,
+      [
+        {
+          "1": {
+            "iou_m": 0.7603011049441993,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.7263980051442324,
+            "moved_objects": 1700,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.7418737838864327,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.7076806405696141,
+            "moved_objects": 1700,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      5,
+      5,
+      [
+        {
+          "1": {
+            "iou_m": 0.34002965955389663,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.2890389687539124,
+            "moved_objects": 1700,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.4876746055270778,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.4608717050755791,
+            "moved_objects": 1700,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      6,
+      5,
+      [
+        {
+          "1": {
+            "iou_m": 0.4993234385896794,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.44844641722129275,
+            "moved_objects": 1700,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.5020901952460408,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.4585809255367391,
+            "moved_objects": 1700,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      7,
+      5,
+      [
+        {
+          "1": {
+            "iou_m": 0.6589061729214154,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.6239291958229425,
+            "moved_objects": 1700,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.6630826225355267,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.6249820647659876,
+            "moved_objects": 1700,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      8,
+      5,
+      [
+        {
+          "1": {
+            "iou_m": 0.7421926989331842,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.7070047458135249,
+            "moved_objects": 1700,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.6993490915670991,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.6628471761657034,
+            "moved_objects": 1700,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      9,
+      5,
+      [
+        {
+          "1": {
+            "iou_m": 0.3896896104649641,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.32093248200599406,
+            "moved_objects": 1700,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.5248443117014685,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.4613578556669766,
+            "moved_objects": 1700,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      10,
+      5,
+      [
+        {
+          "1": {
+            "iou_m": 0.40739389033662154,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.3518441220104475,
+            "moved_objects": 1700,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.37611509876698257,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.3169339850369579,
+            "moved_objects": 1700,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      1,
+      6,
+      [
+        {
+          "1": {
+            "iou_m": 0.005515868513379246,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.007230948374480113,
+            "moved_objects": 1722,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.0054329478725558145,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.008024249611742595,
+            "moved_objects": 1722,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      2,
+      6,
+      [
+        {
+          "1": {
+            "iou_m": 0.5159483968182467,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.45599317849931736,
+            "moved_objects": 1722,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.5638633167899679,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.524771293073074,
+            "moved_objects": 1722,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      3,
+      6,
+      [
+        {
+          "1": {
+            "iou_m": 0.7883860309850425,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.7386419394140188,
+            "moved_objects": 1722,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.7531758053656668,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.7108481672866125,
+            "moved_objects": 1722,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      4,
+      6,
+      [
+        {
+          "1": {
+            "iou_m": 0.7832157710678875,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.7413244193256752,
+            "moved_objects": 1722,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.7705692353099585,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.7266668012402476,
+            "moved_objects": 1722,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      5,
+      6,
+      [
+        {
+          "1": {
+            "iou_m": 0.5239547321614809,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.4663073036454428,
+            "moved_objects": 1722,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.5659291197406128,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.5065553519636437,
+            "moved_objects": 1722,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      6,
+      6,
+      [
+        {
+          "1": {
+            "iou_m": 0.5395768020630348,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.4835530936117116,
+            "moved_objects": 1722,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.5169967410130194,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.4850901834214859,
+            "moved_objects": 1722,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      7,
+      6,
+      [
+        {
+          "1": {
+            "iou_m": 0.6701600109955762,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.618146693037486,
+            "moved_objects": 1722,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.7020707702040673,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.6568088275395305,
+            "moved_objects": 1722,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      8,
+      6,
+      [
+        {
+          "1": {
+            "iou_m": 0.7589762348309159,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.7250860130368937,
+            "moved_objects": 1722,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.7131398944929243,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.6933092998106002,
+            "moved_objects": 1722,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      9,
+      6,
+      [
+        {
+          "1": {
+            "iou_m": 0.4079327511282172,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.3376869006242233,
+            "moved_objects": 1722,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.4150270817410201,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.3569825581932991,
+            "moved_objects": 1722,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      10,
+      6,
+      [
+        {
+          "1": {
+            "iou_m": 0.46984417918603866,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.40170553541576226,
+            "moved_objects": 1722,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.2831221914363559,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.24371375909222384,
+            "moved_objects": 1722,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      1,
+      7,
+      [
+        {
+          "1": {
+            "iou_m": 0.008522073074243963,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.005419295359286274,
+            "moved_objects": 1693,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.008171565021300922,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.006787113785112197,
+            "moved_objects": 1693,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      2,
+      7,
+      [
+        {
+          "1": {
+            "iou_m": 0.5918622987763811,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.5493452717921831,
+            "moved_objects": 1693,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.516253005510429,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.4680893307723339,
+            "moved_objects": 1693,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      3,
+      7,
+      [
+        {
+          "1": {
+            "iou_m": 0.7639684124290943,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.7340122479678621,
+            "moved_objects": 1693,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.7520766280304196,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.726275263925188,
+            "moved_objects": 1693,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      4,
+      7,
+      [
+        {
+          "1": {
+            "iou_m": 0.7924542042687536,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.7640848129144548,
+            "moved_objects": 1693,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.7651450486406683,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.7398481419336379,
+            "moved_objects": 1693,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      5,
+      7,
+      [
+        {
+          "1": {
+            "iou_m": 0.5400638390978202,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.500606557759653,
+            "moved_objects": 1693,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.5574172869211906,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.5263519163862647,
+            "moved_objects": 1693,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      6,
+      7,
+      [
+        {
+          "1": {
+            "iou_m": 0.49145863828249275,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.4483244662976826,
+            "moved_objects": 1693,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.5873476224895566,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.5565964628904354,
+            "moved_objects": 1693,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      7,
+      7,
+      [
+        {
+          "1": {
+            "iou_m": 0.6689244125969708,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.641339482015148,
+            "moved_objects": 1693,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.6875976961171254,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.6589131385369,
+            "moved_objects": 1693,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      8,
+      7,
+      [
+        {
+          "1": {
+            "iou_m": 0.759664851501584,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.7407446320722076,
+            "moved_objects": 1693,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.6778109393045306,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.6464945493366105,
+            "moved_objects": 1693,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      9,
+      7,
+      [
+        {
+          "1": {
+            "iou_m": 0.56867348924838,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.517047406365953,
+            "moved_objects": 1693,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.5676895630740674,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.5245116795972925,
+            "moved_objects": 1693,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      10,
+      7,
+      [
+        {
+          "1": {
+            "iou_m": 0.44568584694433955,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.39229019854473574,
+            "moved_objects": 1693,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.58796545291871,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.5413635382888788,
+            "moved_objects": 1693,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      1,
+      8,
+      [
+        {
+          "1": {
+            "iou_m": 0.6020947914311837,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.5528971531085851,
+            "moved_objects": 1668,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.6627450401028618,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.6244226694150328,
+            "moved_objects": 1668,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      2,
+      8,
+      [
+        {
+          "1": {
+            "iou_m": 0.5251683420599438,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.4876642824030996,
+            "moved_objects": 1668,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.5716967975911684,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.5237335963527855,
+            "moved_objects": 1668,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      3,
+      8,
+      [
+        {
+          "1": {
+            "iou_m": 0.7625589234847575,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.7253735332006624,
+            "moved_objects": 1668,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.7550809901468456,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.7173091057686323,
+            "moved_objects": 1668,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      4,
+      8,
+      [
+        {
+          "1": {
+            "iou_m": 0.7689830481633544,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.7272902974899081,
+            "moved_objects": 1668,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.7658267002794892,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.7328577988861437,
+            "moved_objects": 1668,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      5,
+      8,
+      [
+        {
+          "1": {
+            "iou_m": 0.3492078384719789,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.30025211759277326,
+            "moved_objects": 1668,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.5490768472319469,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.504094578896187,
+            "moved_objects": 1668,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      6,
+      8,
+      [
+        {
+          "1": {
+            "iou_m": 0.5391535827713088,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.48434574002449177,
+            "moved_objects": 1668,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.582869743762305,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.5422969493742505,
+            "moved_objects": 1668,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      7,
+      8,
+      [
+        {
+          "1": {
+            "iou_m": 0.6757231932598952,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.6248344772255798,
+            "moved_objects": 1668,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.6897279949951917,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.6462496904082868,
+            "moved_objects": 1668,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      8,
+      8,
+      [
+        {
+          "1": {
+            "iou_m": 0.7577714740931988,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.7160709099280168,
+            "moved_objects": 1668,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.693180787883699,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.6601216452022036,
+            "moved_objects": 1668,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      9,
+      8,
+      [
+        {
+          "1": {
+            "iou_m": 0.38468455420972175,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.32890056008133145,
+            "moved_objects": 1668,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.36224635439738634,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.3060070052469019,
+            "moved_objects": 1668,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      10,
+      8,
+      [
+        {
+          "1": {
+            "iou_m": 0.36405101926444333,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.3049206516104672,
+            "moved_objects": 1668,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.42457769566471687,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.36673563576515034,
+            "moved_objects": 1668,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      1,
+      9,
+      [
+        {
+          "1": {
+            "iou_m": 0.00621893881354481,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.006072025937576492,
+            "moved_objects": 1687,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.006179790492169559,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.006085940445492444,
+            "moved_objects": 1687,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      2,
+      9,
+      [
+        {
+          "1": {
+            "iou_m": 0.5838381475858332,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.515192050566748,
+            "moved_objects": 1687,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.5931249632170075,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.5272904905900757,
+            "moved_objects": 1687,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      3,
+      9,
+      [
+        {
+          "1": {
+            "iou_m": 0.7827132042981684,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.738785776035986,
+            "moved_objects": 1687,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.7344413042813539,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.6909780785180275,
+            "moved_objects": 1687,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      4,
+      9,
+      [
+        {
+          "1": {
+            "iou_m": 0.7786345084756613,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.73432388753262,
+            "moved_objects": 1687,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.7613468693047762,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.7219655391659143,
+            "moved_objects": 1687,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      5,
+      9,
+      [
+        {
+          "1": {
+            "iou_m": 0.5465238540894352,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.47195927369984936,
+            "moved_objects": 1687,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.47587435994111,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.42484479922099627,
+            "moved_objects": 1687,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      6,
+      9,
+      [
+        {
+          "1": {
+            "iou_m": 0.5526840175725519,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.5049004968639853,
+            "moved_objects": 1687,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.4806645963989431,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.4417201123587764,
+            "moved_objects": 1687,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      7,
+      9,
+      [
+        {
+          "1": {
+            "iou_m": 0.6741171644423157,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.6153741834856896,
+            "moved_objects": 1687,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.6475471083298325,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.5953580735645477,
+            "moved_objects": 1687,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      8,
+      9,
+      [
+        {
+          "1": {
+            "iou_m": 0.7691488081514836,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.7308951178968625,
+            "moved_objects": 1687,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.6858256429433822,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.6460004701393932,
+            "moved_objects": 1687,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      9,
+      9,
+      [
+        {
+          "1": {
+            "iou_m": 0.608114459159784,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.5385906332257402,
+            "moved_objects": 1687,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.4591879274204839,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.39364035613690374,
+            "moved_objects": 1687,
+            "examples": 1000
+          }
+        }
+      ]
+    ],
+    [
+      10,
+      9,
+      [
+        {
+          "1": {
+            "iou_m": 0.5890130506727146,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.5268355245590798,
+            "moved_objects": 1687,
+            "examples": 1000
+          }
+        },
+        {
+          "1": {
+            "iou_m": 0.4141934985010885,
+            "moved_objects": 1000,
+            "examples": 1000
+          },
+          "2": {
+            "iou_m": 0.35920500366695424,
+            "moved_objects": 1687,
+            "examples": 1000
+          }
+        }
+      ]
+    ]
+  ]
+}

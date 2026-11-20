@@ -1,4 +1,5 @@
 import numpy as np
+import pytest
 
 from nsrmp.batch import ROLE_GROUPS, VOCAB, collate
 from nsrmp.data import make_dataset
@@ -48,3 +49,12 @@ def test_collate_stores_the_parsed_role_word_groups_of_every_step():
                 ids = [t for t in b.role_tokens[k, s, g].tolist() if t != 0]
                 assert [VOCAB[t] for t in ids] == words
         assert b.role_tokens[k, e.n_steps:].abs().sum() == 0
+
+
+@pytest.mark.parametrize("surface_context, positions", [(True, (2, 3, 5)), (False, (0, 1, 2))])
+def test_learned_collate_preserves_keyword_positions(surface_context, positions):
+    example = make_dataset(1, seed=4)[0]
+    example.text = "put the cube to the right of the dice"
+    inputs = collate([example], mode="learned", surface_context=surface_context).inputs
+    assert tuple(inputs.keyword_positions[inputs.keyword_mask].tolist()) == positions
+    assert inputs.step_keywords(0, 0) == ("cube", "right", "dice")
